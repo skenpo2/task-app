@@ -1,4 +1,4 @@
-const Category = require('../models/Category');
+const Category = require('../models/category.model');
 
 // @desc   Create a new category
 // @route  POST /api/categories

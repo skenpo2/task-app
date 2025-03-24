@@ -10,8 +10,10 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 // Import routes
-// const authRoutes = require('./routes/auth.route');
-// const userRoutes = require('./routes/user.route');
+const authRoutes = require('./routes/auth.route');
+const userRoutes = require('./routes/user.route');
+const categoryRoutes = require('./routes/category.route');
+const taskRoutes = require('./routes/task.route');
 
 // Import error handler middleware
 const errorHandler = require('./middlewares/errorHandler');
@@ -48,8 +50,10 @@ app.use((req, res, next) => {
 });
 
 // Routes
-// app.use('/auth', authRoutes);
-// app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/tasks', taskRoutes);
 
 // Handle 404 Errors (Page Not Found)
 app.use((req, res, next) => {
