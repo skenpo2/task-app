@@ -1,5 +1,7 @@
 const express = require('express');
 
+const loginLimiter = require('../middlewares/loginLimiter');
+
 const router = express.Router();
 
 const {
@@ -10,7 +12,7 @@ const {
 } = require('../controllers/auth.controller');
 
 router.post('/register', registerUser);
-router.post('/login', loginUser);
+router.post('/login', loginLimiter, loginUser);
 router.post('/logout', logout);
 router.get('/refresh', refresh);
 
