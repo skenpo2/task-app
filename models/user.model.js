@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const Task = require('../models/task.model');
+const Category = require('../models/category.model');
 
 const userSchema = new mongoose.Schema(
   {

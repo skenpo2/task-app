@@ -19,7 +19,7 @@ const createCategory = async (req, res) => {
   const newCategory = new Category({ user: userId, name });
   await newCategory.save();
   res.status(201).json({
-    success: false,
+    success: true,
     data: newCategory,
   });
 };

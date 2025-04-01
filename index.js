@@ -19,7 +19,7 @@ const taskRoutes = require('./routes/task.route');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
-const PORT = 5002;
+const PORT = process.env.PORT || 5002;
 const DatabaseUrl = process.env.MONGO_URI;
 
 // Global Error Handlers
@@ -50,10 +50,10 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
-app.use('/categories', categoryRoutes);
-app.use('/tasks', taskRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Handle 404 Errors (Page Not Found)
 app.use((req, res, next) => {

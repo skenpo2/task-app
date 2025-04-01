@@ -2,6 +2,9 @@ const Task = require('../models/task.model');
 const Category = require('../models/category.model');
 const { validateTask, validateEditedTask } = require('../utils/validator');
 
+// @desc   create a task
+// @route  POST /api/tasks
+// @access Private (logged user only)
 const createTask = async (req, res) => {
   const { error } = validateTask(req.body);
 
@@ -13,7 +16,7 @@ const createTask = async (req, res) => {
   }
 
   const { title, description, category, deadline, status, priority } = req.body;
-  const userId = req.user.id;
+  const userId = req.user.id; //get user ID from JWT
 
   // Ensure the category (if provided) belongs to the user
   if (category) {
@@ -46,6 +49,9 @@ const createTask = async (req, res) => {
   });
 };
 
+// @desc   edit a task
+// @route  PUT /api/tasks/:id
+// @access Private (logged user only who created the task)
 const updateTask = async (req, res) => {
   const { error } = validateEditedTask(req.body);
 
@@ -56,9 +62,9 @@ const updateTask = async (req, res) => {
     });
   }
 
-  const { taskId } = req.params;
+  const taskId = req.params.id;
   const { title, description, category, deadline, status, priority } = req.body;
-  const userId = req.user.id;
+  const userId = req.user.id; //get user ID from JWT
 
   const task = await Task.findById(taskId);
   if (!task)
@@ -104,9 +110,13 @@ const updateTask = async (req, res) => {
     data: task,
   });
 };
+
+// @desc   delete a task
+// @route  DELETE /api/tasks/:id
+// @access Private (logged user only who created the task)
 const deleteTask = async (req, res) => {
-  const { taskId } = req.params;
-  const userId = req.user.id;
+  const taskId = req.params.id;
+  const userId = req.user.id; //get user ID from JWT
 
   const task = await Task.findById(taskId);
   if (!task)
@@ -120,8 +130,11 @@ const deleteTask = async (req, res) => {
   res.status(200).json({ success: true, message: 'Task deleted successfully' });
 };
 
+// @desc   get a task
+// @route  GET /api/tasks/:id
+// @access Private (logged user only who created the task)
 const getTask = async (req, res) => {
-  const { taskId } = req.params;
+  const taskId = req.params.id;
   const userId = req.user.id;
 
   const task = await Task.findOne({ _id: taskId, user: userId });
@@ -131,8 +144,11 @@ const getTask = async (req, res) => {
   res.status(200).json({ success: true, data: task });
 };
 
+// @desc   get all tasks of a user
+// @route  PUT /api/tasks
+// @access Private (logged user only who created the tasks)
 const getAllTasks = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.user.id; //get user ID from JWT
   const {
     category,
     priority,

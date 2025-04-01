@@ -7,8 +7,8 @@ const {
   getUser,
 } = require('../controllers/user.controller');
 
-router.get('/:userId', verifyJWT, getUser);
-router.delete('/', verifyJWT, deleteUser);
+router.get('/', verifyJWT, getUser);
 router.put('/', verifyJWT, updateUser);
+router.delete('/', verifyJWT, deleteUser);
 
 module.exports = router;
